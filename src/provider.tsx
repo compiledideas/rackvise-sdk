@@ -3,21 +3,31 @@ import { StorefrontApiClient } from './client';
 import type { StorefrontConfig } from './client';
 import { StorefrontCartProvider } from './cart';
 
+declare const process: { env: Record<string, string | undefined> };
+
 const StorefrontContext = createContext<StorefrontApiClient | null>(null);
 
-export interface StorefrontProviderProps extends StorefrontConfig {
+export interface StorefrontProviderProps extends Partial<StorefrontConfig> {
   children: React.ReactNode;
 }
 
 export function StorefrontProvider({ baseUrl, apiKey, children }: StorefrontProviderProps) {
+  const resolvedBaseUrl = baseUrl ?? process.env.NEXT_PUBLIC_STOREFRONT_URL;
+  if (!resolvedBaseUrl) {
+    throw new Error(
+      'StorefrontProvider requires a baseUrl prop or NEXT_PUBLIC_STOREFRONT_URL environment variable.',
+    );
+  }
+  const resolvedApiKey = apiKey ?? process.env.NEXT_PUBLIC_STOREFRONT_API_KEY ?? '';
+
   const client = useMemo(
-    () => new StorefrontApiClient({ baseUrl, apiKey }),
-    [baseUrl, apiKey],
+    () => new StorefrontApiClient({ baseUrl: resolvedBaseUrl, apiKey: resolvedApiKey }),
+    [resolvedBaseUrl, resolvedApiKey],
   );
 
   return (
     <StorefrontContext.Provider value={client}>
-      <StorefrontCartProvider tenantSlug={apiKey}>
+      <StorefrontCartProvider tenantSlug={resolvedApiKey}>
         {children}
       </StorefrontCartProvider>
     </StorefrontContext.Provider>

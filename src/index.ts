@@ -18,6 +18,7 @@ export type {
   StorefrontStats,
   SiteContent,
   TopSellingProduct,
+  LandingPageInfo,
   PaginatedResponse,
   PaginationMeta,
   ApiResponse,
@@ -45,6 +46,7 @@ export {
   useStorefrontStats,
   useStorefrontAboutContent,
   useStorefrontTopSellingProducts,
+  useStorefrontHero,
 } from './hooks';
 
 export { StorefrontCartProvider, useStorefrontCart } from './cart';

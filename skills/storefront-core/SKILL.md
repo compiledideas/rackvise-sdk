@@ -22,15 +22,15 @@ import { StorefrontProvider } from '@rackvise/storefront-sdk';
 
 function App() {
   return (
-    <StorefrontProvider baseUrl="https://your-tenant.rackvise.com" apiKey="tenant-api-key">
+    <StorefrontProvider baseUrl="https://kidoo.compiledideas.dev" apiKey="tenant-api-key">
       <YourStorefront />
     </StorefrontProvider>
   );
 }
 ```
 
-- `baseUrl`: Your tenant's storefront URL (no trailing slash).
-- `apiKey`: The tenant's public API key. Also used as the localStorage cart key.
+- `baseUrl`: Your tenant's storefront URL (no trailing slash). Falls back to `NEXT_PUBLIC_STOREFRONT_URL` env var.
+- `apiKey`: The tenant's public API key. Falls back to `NEXT_PUBLIC_STOREFRONT_API_KEY` env var. Also used as the localStorage cart key.
 
 `StorefrontProvider` internally wraps both the API client context and the
 `StorefrontCartProvider`, so cart state is ready immediately.

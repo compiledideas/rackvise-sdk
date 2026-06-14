@@ -172,6 +172,23 @@ export interface TopSellingProduct {
   totalSold: number;
 }
 
+export interface LandingPageInfo {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  imageUrl?: string | null;
+  titleFR?: string | null;
+  subtitleFR?: string | null;
+  titleAR?: string | null;
+  subtitleAR?: string | null;
+  heroBadge?: string | null;
+  heroBadgeFR?: string | null;
+  heroBadgeAR?: string | null;
+  featuresJson?: Record<string, unknown> | null;
+  pricingJson?: Record<string, unknown> | null;
+  ctaJson?: Record<string, unknown> | null;
+}
+
 export interface PaginatedResponse<T> {
   data: T[];
   pagination: {

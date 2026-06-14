@@ -18,6 +18,7 @@ import type {
   StorefrontStats,
   SiteContent,
   TopSellingProduct,
+  LandingPageInfo,
   GetProductsParams,
   GetCategoryProductsParams,
   PaginatedResponse,
@@ -162,6 +163,17 @@ export function useStorefrontTopSellingProducts(
   return useQuery({
     queryKey: ['storefront', key, 'top-selling'],
     queryFn: () => client.getTopSellingProducts(),
+    ...options,
+  });
+}
+
+export function useStorefrontHero(
+  options?: Omit<UseQueryOptions<LandingPageInfo, Error>, 'queryKey' | 'queryFn'>,
+) {
+  const { client, key } = useClient();
+  return useQuery({
+    queryKey: ['storefront', key, 'hero'],
+    queryFn: () => client.getHero(),
     ...options,
   });
 }

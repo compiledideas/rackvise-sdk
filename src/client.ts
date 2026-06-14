@@ -10,6 +10,7 @@ import type {
   StorefrontStats,
   SiteContent,
   TopSellingProduct,
+  LandingPageInfo,
   GetProductsParams,
   GetCategoriesParams,
   GetCategoryProductsParams,
@@ -57,6 +58,11 @@ export class StorefrontApiClient {
     const response = await this.executeFetch(path, options);
     const payload = await response.json();
     return payload.data as T;
+  }
+
+  private async requestRaw<T>(path: string, options?: RequestInit): Promise<T> {
+    const response = await this.executeFetch(path, options);
+    return response.json() as Promise<T>;
   }
 
   private async requestPaginated<T>(
@@ -148,7 +154,11 @@ export class StorefrontApiClient {
   }
 
   async getPointOfSells(): Promise<PointOfSell[]> {
-    return this.request<PointOfSell[]>('/api/public/point-of-sells');
+    return this.request<PointOfSell[]>('/api/public/pos');
+  }
+
+  async getHero(): Promise<LandingPageInfo> {
+    return this.requestRaw<LandingPageInfo>('/api/public/hero');
   }
 
   async getStats(): Promise<StorefrontStats> {
