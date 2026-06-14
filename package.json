@@ -1,0 +1,55 @@
+{
+  "name": "@rackvise/storefront-sdk",
+  "version": "0.1.1",
+  "description": "Immutable storefront SDK for Rackvise multi-tenant e-commerce platform. Wraps public APIs with TanStack Query for type-safe caching.",
+  "license": "MIT",
+  "author": "Rackvise",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "skills"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "pnpm build",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "@types/react": "^19.2.15",
+    "react": "^19.2.6",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "rackvise",
+    "storefront",
+    "ecommerce",
+    "sdk",
+    "tanstack-query",
+    "multi-tenant"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rackvise/rackvise.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@10.33.2+sha512.a90faf6feeab71ad6c6e57f94e0fe1a12f5dcc22cd754db40ae9593eb6a3e0b6b12e3540218bb37ae083404b1f2ce6db2a4121e979829b4aff94b99f49da1cf8"
+}
