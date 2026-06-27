@@ -25,6 +25,32 @@ export type {
   GetProductsParams,
   GetCategoriesParams,
   GetCategoryProductsParams,
+  StatusData,
+  PaymentMethodBreakdown,
+  OrderSourceBreakdown,
+  TopProduct,
+  DailySale,
+  MonthlySale,
+  RecentOrder,
+  FinancialsTenantInfo,
+  InvoiceOrderItem,
+  InvoiceOrder,
+  InvoicesData,
+  MonthlyReportSummary,
+  PaymentMethodTotals,
+  DailySalesEntry,
+  MonthlyProductSales,
+  MonthlyReportData,
+  MonthlyBreakdownEntry,
+  YearlyReportSummary,
+  YearlyReportData,
+  BilanSummary,
+  BilanData,
+  JournalEntryItem,
+  JournalData,
+  FinancialsType,
+  FinancialsQueryParams,
+  FinancialsResponse,
 } from './types';
 
 export { StorefrontApiClient } from './client';
@@ -47,6 +73,7 @@ export {
   useStorefrontAboutContent,
   useStorefrontTopSellingProducts,
   useStorefrontHero,
+  useFinancials,
 } from './hooks';
 
 export { StorefrontCartProvider, useStorefrontCart } from './cart';

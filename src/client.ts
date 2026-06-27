@@ -15,6 +15,8 @@ import type {
   GetCategoriesParams,
   GetCategoryProductsParams,
   PaginatedResponse,
+  FinancialsQueryParams,
+  FinancialsResponse,
 } from './types';
 
 export interface StorefrontConfig {
@@ -171,5 +173,17 @@ export class StorefrontApiClient {
 
   async getTopSellingProducts(): Promise<TopSellingProduct[]> {
     return this.request<TopSellingProduct[]>('/api/public/products/top-selling');
+  }
+
+  async getFinancials(params: FinancialsQueryParams): Promise<FinancialsResponse> {
+    const query = new URLSearchParams();
+    query.set('type', params.type);
+    if (params.startDate) query.set('startDate', params.startDate);
+    if (params.endDate) query.set('endDate', params.endDate);
+    if (params.year !== undefined) query.set('year', String(params.year));
+    if (params.month !== undefined) query.set('month', String(params.month));
+    if (params.pointOfSellId !== undefined) query.set('pointOfSellId', String(params.pointOfSellId));
+    const qs = query.toString();
+    return this.request<FinancialsResponse>(`/api/mobile/financials?${qs}`);
   }
 }

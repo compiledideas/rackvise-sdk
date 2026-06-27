@@ -22,6 +22,8 @@ import type {
   GetProductsParams,
   GetCategoryProductsParams,
   PaginatedResponse,
+  FinancialsQueryParams,
+  FinancialsResponse,
 } from './types';
 
 function useClient(): { client: StorefrontApiClient; key: string } {
@@ -174,6 +176,18 @@ export function useStorefrontHero(
   return useQuery({
     queryKey: ['storefront', key, 'hero'],
     queryFn: () => client.getHero(),
+    ...options,
+  });
+}
+
+export function useFinancials(
+  params: FinancialsQueryParams,
+  options?: Omit<UseQueryOptions<FinancialsResponse, Error>, 'queryKey' | 'queryFn'>,
+) {
+  const { client, key } = useClient();
+  return useQuery({
+    queryKey: ['storefront', key, 'financials', params],
+    queryFn: () => client.getFinancials(params),
     ...options,
   });
 }
