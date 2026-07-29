@@ -1,6 +1,6 @@
 {
   "name": "@rackvise/storefront-sdk",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Immutable storefront SDK for Rackvise multi-tenant e-commerce platform. Wraps public APIs with TanStack Query for type-safe caching.",
   "license": "MIT",
   "author": "Rackvise",

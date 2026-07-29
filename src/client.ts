@@ -1,3 +1,5 @@
+declare const __DEV__: boolean | undefined;
+
 import type {
   Product,
   Category,
@@ -84,6 +86,9 @@ export class StorefrontApiClient {
       },
     });
     const payload = await response.json();
+    if (typeof __DEV__ !== 'undefined' && __DEV__) {
+      console.log(`[storefront-sdk] ${response.status} ${path}`, JSON.stringify(payload, null, 2));
+    }
     return payload.data as T;
   }
 
