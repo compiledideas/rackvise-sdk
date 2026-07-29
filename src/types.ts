@@ -250,6 +250,7 @@ export interface StorefrontStats {
 }
 
 export interface GetStatsParams {
+  pointOfSellId?: number;
   sellerId?: number;
   startDate?: string;
   endDate?: string;
