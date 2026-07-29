@@ -53,12 +53,12 @@ export class StorefrontApiClient {
   private async executeFetch(path: string, options?: RequestInit): Promise<Response> {
     const url = `${this.baseUrl}${path}`;
     const response = await fetch(url, {
+      ...options,
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey,
         ...options?.headers,
       },
-      ...options,
     });
 
     if (!response.ok) {
