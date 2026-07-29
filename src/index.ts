@@ -16,6 +16,8 @@ export type {
   FAQ,
   PointOfSell,
   StorefrontStats,
+  StoreSocialLinks,
+  StorefrontConfigData,
   SiteContent,
   TopSellingProduct,
   LandingPageInfo,
@@ -23,6 +25,7 @@ export type {
   PaginationMeta,
   ApiResponse,
   GetProductsParams,
+  GetStatsParams,
   GetCategoriesParams,
   GetCategoryProductsParams,
   StatusData,
@@ -60,6 +63,7 @@ export { StorefrontProvider, useStorefrontClient } from './provider';
 export type { StorefrontProviderProps } from './provider';
 
 export {
+  useStorefrontConfig,
   useStorefrontProducts,
   useStorefrontProduct,
   useStorefrontCategories,
@@ -70,6 +74,7 @@ export {
   useStorefrontFaqs,
   useStorefrontPointOfSells,
   useStorefrontStats,
+  useStorefrontDashboard,
   useStorefrontAboutContent,
   useStorefrontTopSellingProducts,
   useStorefrontHero,

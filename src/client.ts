@@ -8,12 +8,14 @@ import type {
   FAQ,
   PointOfSell,
   StorefrontStats,
+  StorefrontConfigData,
   SiteContent,
   TopSellingProduct,
   LandingPageInfo,
   GetProductsParams,
   GetCategoriesParams,
   GetCategoryProductsParams,
+  GetStatsParams,
   PaginatedResponse,
   FinancialsQueryParams,
   FinancialsResponse,
@@ -22,19 +24,30 @@ import type {
 export interface StorefrontConfig {
   baseUrl: string;
   apiKey: string;
+  authToken?: string;
 }
 
 export class StorefrontApiClient {
   private baseUrl: string;
   private apiKey: string;
+  private authToken?: string;
 
   constructor(config: StorefrontConfig) {
     this.baseUrl = config.baseUrl.replace(/\/+$/, '');
     this.apiKey = config.apiKey;
+    this.authToken = config.authToken;
+  }
+
+  setAuthToken(token: string | undefined) {
+    this.authToken = token;
   }
 
   getApiKey(): string {
     return this.apiKey;
+  }
+
+  private getAuthHeaders(): Record<string, string> {
+    return this.authToken ? { Authorization: `Bearer ${this.authToken}` } : {};
   }
 
   private async executeFetch(path: string, options?: RequestInit): Promise<Response> {
@@ -62,6 +75,18 @@ export class StorefrontApiClient {
     return payload.data as T;
   }
 
+  private async requestAuthenticated<T>(path: string, options?: RequestInit): Promise<T> {
+    const response = await this.executeFetch(path, {
+      ...options,
+      headers: {
+        ...this.getAuthHeaders(),
+        ...options?.headers,
+      },
+    });
+    const payload = await response.json();
+    return payload.data as T;
+  }
+
   private async requestRaw<T>(path: string, options?: RequestInit): Promise<T> {
     const response = await this.executeFetch(path, options);
     return response.json() as Promise<T>;
@@ -77,6 +102,10 @@ export class StorefrontApiClient {
       data: payload.data as T[],
       pagination: payload.pagination as PaginatedResponse<T>['pagination'],
     };
+  }
+
+  async getStoreConfig(): Promise<StorefrontConfigData> {
+    return this.request<StorefrontConfigData>('/api/public/store-config');
   }
 
   async getProducts(
@@ -163,8 +192,30 @@ export class StorefrontApiClient {
     return this.requestRaw<LandingPageInfo>('/api/public/hero');
   }
 
-  async getStats(): Promise<StorefrontStats> {
-    return this.request<StorefrontStats>('/api/public/stats');
+  async getStats(params?: GetStatsParams): Promise<StorefrontStats> {
+    const query = new URLSearchParams();
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        if (value !== undefined && value !== null) {
+          query.set(key, String(value));
+        }
+      }
+    }
+    const qs = query.toString();
+    return this.request<StorefrontStats>(`/api/public/stats${qs ? `?${qs}` : ''}`);
+  }
+
+  async getDashboard(params?: GetStatsParams): Promise<StorefrontStats> {
+    const query = new URLSearchParams();
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        if (value !== undefined && value !== null) {
+          query.set(key, String(value));
+        }
+      }
+    }
+    const qs = query.toString();
+    return this.requestAuthenticated<StorefrontStats>(`/api/mobile/dashboard${qs ? `?${qs}` : ''}`);
   }
 
   async getAboutContent(): Promise<SiteContent | null> {

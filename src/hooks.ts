@@ -16,11 +16,13 @@ import type {
   FAQ,
   PointOfSell,
   StorefrontStats,
+  StorefrontConfigData,
   SiteContent,
   TopSellingProduct,
   LandingPageInfo,
   GetProductsParams,
   GetCategoryProductsParams,
+  GetStatsParams,
   PaginatedResponse,
   FinancialsQueryParams,
   FinancialsResponse,
@@ -29,6 +31,17 @@ import type {
 function useClient(): { client: StorefrontApiClient; key: string } {
   const client = useStorefrontClient();
   return { client, key: client.getApiKey() };
+}
+
+export function useStorefrontConfig(
+  options?: Omit<UseQueryOptions<StorefrontConfigData, Error>, 'queryKey' | 'queryFn'>,
+) {
+  const { client, key } = useClient();
+  return useQuery({
+    queryKey: ['storefront', key, 'store-config'],
+    queryFn: () => client.getStoreConfig(),
+    ...options,
+  });
 }
 
 export function useStorefrontProducts(
@@ -137,12 +150,25 @@ export function useStorefrontPointOfSells(
 }
 
 export function useStorefrontStats(
+  params?: GetStatsParams,
   options?: Omit<UseQueryOptions<StorefrontStats, Error>, 'queryKey' | 'queryFn'>,
 ) {
   const { client, key } = useClient();
   return useQuery({
-    queryKey: ['storefront', key, 'stats'],
-    queryFn: () => client.getStats(),
+    queryKey: ['storefront', key, 'stats', params],
+    queryFn: () => client.getStats(params),
+    ...options,
+  });
+}
+
+export function useStorefrontDashboard(
+  params?: GetStatsParams,
+  options?: Omit<UseQueryOptions<StorefrontStats, Error>, 'queryKey' | 'queryFn'>,
+) {
+  const { client, key } = useClient();
+  return useQuery({
+    queryKey: ['storefront', key, 'dashboard', params],
+    queryFn: () => client.getDashboard(params),
     ...options,
   });
 }

@@ -12,6 +12,22 @@ type: sub-skill
 All hooks auto-resolve the `StorefrontApiClient` from context and key queries
 by the tenant's API key, so data is cached separately per tenant.
 
+## useStorefrontConfig
+
+```tsx
+function useStorefrontConfig(
+  options?: UseQueryOptions<StorefrontConfigData, Error>,
+);
+```
+
+Returns merchant storefront configuration including brand colors (`primaryColor`,
+`secondaryColor`, `tertiaryColor`), localized store taglines and announcements,
+free shipping thresholds, currency symbols, and social media links.
+
+```tsx
+const { data: config } = useStorefrontConfig();
+```
+
 ## useStorefrontProducts
 
 ```tsx

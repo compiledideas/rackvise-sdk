@@ -11,7 +11,7 @@ export interface StorefrontProviderProps extends Partial<StorefrontConfig> {
   children: React.ReactNode;
 }
 
-export function StorefrontProvider({ baseUrl, apiKey, children }: StorefrontProviderProps) {
+export function StorefrontProvider({ baseUrl, apiKey, authToken, children }: StorefrontProviderProps) {
   const resolvedBaseUrl = baseUrl ?? process.env.NEXT_PUBLIC_STOREFRONT_URL;
   if (!resolvedBaseUrl) {
     throw new Error(
@@ -21,8 +21,8 @@ export function StorefrontProvider({ baseUrl, apiKey, children }: StorefrontProv
   const resolvedApiKey = apiKey ?? process.env.NEXT_PUBLIC_STOREFRONT_API_KEY ?? '';
 
   const client = useMemo(
-    () => new StorefrontApiClient({ baseUrl: resolvedBaseUrl, apiKey: resolvedApiKey }),
-    [resolvedBaseUrl, resolvedApiKey],
+    () => new StorefrontApiClient({ baseUrl: resolvedBaseUrl, apiKey: resolvedApiKey, authToken }),
+    [resolvedBaseUrl, resolvedApiKey, authToken],
   );
 
   return (

@@ -194,21 +194,65 @@ export interface RecentOrder {
   user: { id: number; firstName: string; lastName: string; email: string } | null;
 }
 
+export interface StoreSocialLinks {
+  instagram?: string | null;
+  facebook?: string | null;
+  whatsapp?: string | null;
+  tiktok?: string | null;
+  twitter?: string | null;
+}
+
+export interface StorefrontConfigData {
+  id: string;
+  name: string;
+  slug: string;
+  customDomain?: string | null;
+  logoUrl?: string | null;
+  primaryColor: string;
+  secondaryColor: string;
+  tertiaryColor: string;
+  taglineEN?: string | null;
+  taglineFR?: string | null;
+  taglineAR?: string | null;
+  announcementEN?: string | null;
+  announcementFR?: string | null;
+  announcementAR?: string | null;
+  showAnnouncement: boolean;
+  freeShippingThreshold: number;
+  shippingFee: number;
+  currency: string;
+  currencySymbol: string;
+  fontFamily?: string | null;
+  socialLinks?: StoreSocialLinks | null;
+  contactPhone?: string | null;
+  contactEmail?: string | null;
+  contactAddress?: string | null;
+  hero?: LandingPageInfo | null;
+}
+
 export interface StorefrontStats {
-  totalUsers: number;
   totalProducts: number;
-  totalOrders: number;
-  totalRevenue: number;
   totalStock: number;
+  totalOrders: number;
+  totalUsers: number;
+  totalRevenue: number;
+  deliveredOrders: number;
+  onlineOrders: number;
   averageOrderValue: number;
   deliveryRate: number;
   orderStatuses: StatusData[];
-  recentOrders: RecentOrder[];
-  monthlySales: MonthlySale[];
-  paymentMethodBreakdown: PaymentMethodBreakdown[];
   orderSourceBreakdown: OrderSourceBreakdown[];
-  topProducts: TopProduct[];
+  paymentMethodBreakdown: PaymentMethodBreakdown[];
+  monthlySales: MonthlySale[];
   dailySales: DailySale[];
+  recentOrders: RecentOrder[];
+  topProducts: TopProduct[];
+}
+
+export interface GetStatsParams {
+  sellerId?: number;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface FinancialsTenantInfo {
@@ -364,13 +408,7 @@ export interface SiteContent {
   contentAR?: string | null;
 }
 
-export interface TopSellingProduct {
-  id: number;
-  name: string;
-  sku: string;
-  price: number;
-  stock: number;
-  images: ProductImage[];
+export interface TopSellingProduct extends Product {
   totalSold: number;
 }
 
