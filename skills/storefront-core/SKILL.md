@@ -22,7 +22,7 @@ import { StorefrontProvider } from '@rackvise/storefront-sdk';
 
 function App() {
   return (
-    <StorefrontProvider baseUrl="https://kidoo.compiledideas.dev" apiKey="tenant-api-key">
+    <StorefrontProvider baseUrl="https://rackvise.com" apiKey="tenant-api-key">
       <YourStorefront />
     </StorefrontProvider>
   );
