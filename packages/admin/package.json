@@ -1,0 +1,57 @@
+{
+  "name": "@rackvise/admin-sdk",
+  "version": "0.1.0",
+  "description": "Authenticated Admin & Merchant SDK for Rackvise platform with TanStack Query caching.",
+  "license": "MIT",
+  "author": "Rackvise",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "skills"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "pnpm build",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "@types/react": "^19.2.17",
+    "react": "^19.2.6",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "rackvise",
+    "admin",
+    "merchant",
+    "dashboard",
+    "ecommerce",
+    "sdk",
+    "tanstack-query",
+    "multi-tenant"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rackvise/rackvise.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@10.33.2"
+}
