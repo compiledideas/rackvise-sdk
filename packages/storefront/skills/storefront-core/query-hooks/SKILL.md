@@ -92,6 +92,7 @@ Returns active promos with their promo-priced products.
 - `useStorefrontStats` — totals (`StorefrontStats`: totalProducts, totalStock, etc.)
 - `useStorefrontAboutContent` — site "about" content (`SiteContent | null`)
 - `useStorefrontTopSellingProducts` — top sellers (`TopSellingProduct[]`)
+- `useStorefrontHero` — landing page banner, title, subtitle, and badges (`LandingPageInfo`)
 
 ## Mutations
 
